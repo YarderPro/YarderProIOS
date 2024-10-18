@@ -27,6 +27,15 @@ class DeflectionLog: ObservableObject, Identifiable{
     @Published var TowerHeight: Double? = nil
     @Published var Length: Double? = nil
     
+    //Variable to remember yarder or anchor side
+    
+    enum YarderOrAnchor: String, Hashable {
+            case yarder = "Yarder"
+            case anchor = "Anchor"
+        }
+        
+    @Published var yarderOrAnchor: YarderOrAnchor = .yarder
+
     var isDataValid: Bool {
         return spanGround != nil && spanMidSpan != nil && TowerHeight != nil && Length != nil
     }

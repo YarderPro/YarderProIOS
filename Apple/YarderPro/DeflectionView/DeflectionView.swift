@@ -57,7 +57,7 @@ func slider(selectedTab: DeflectionLog.YarderOrAnchor, deflectionLog: Deflection
     Spacer()
 }
 
-struct DeflectionViewSettup_Preview: PreviewProvider{
+struct DeflectionView_Preview: PreviewProvider{
     static var previews: some View {
         VStack{
             let demoLog = DeflectionLog()

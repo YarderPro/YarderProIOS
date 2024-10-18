@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DeflectionView: View{
+struct YarderSide: View{
     @ObservedObject var deflectionLog: DeflectionLog
     
     @State private var isEditingGround: Bool = false
@@ -142,11 +142,11 @@ struct DeflectionView: View{
 }
 
 
-struct DeflectionView_Preview: PreviewProvider {
+struct YarderSide_Preview: PreviewProvider {
     static var previews: some View {
         VStack{
             let demoLog = DeflectionLog()
-            DeflectionView(deflectionLog: demoLog)
+            YarderSide(deflectionLog: demoLog)
         }
     }
 }
