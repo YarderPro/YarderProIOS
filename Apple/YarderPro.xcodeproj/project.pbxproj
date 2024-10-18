@@ -29,9 +29,22 @@
 		587492AB2CA3951C004B832B /* YarderProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YarderProUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		581052FB2CC2B5F100C08D16 /* Exceptions for "YarderPro" folder in "YarderPro" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5874928B2CA3951A004B832B /* YarderPro */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5874928E2CA3951A004B832B /* YarderPro */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				581052FB2CC2B5F100C08D16 /* Exceptions for "YarderPro" folder in "YarderPro" target */,
+			);
 			path = YarderPro;
 			sourceTree = "<group>";
 		};
@@ -396,9 +409,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YarderPro\"";
-				DEVELOPMENT_TEAM = BLU2WQ348W;
+				DEVELOPMENT_TEAM = 8EFK5596P8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YarderPro/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Yarder Pro";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -411,7 +425,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Drew.YarderPro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HumboldtStateUniveristy.YarderPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -427,9 +441,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YarderPro\"";
-				DEVELOPMENT_TEAM = BLU2WQ348W;
+				DEVELOPMENT_TEAM = 8EFK5596P8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YarderPro/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Yarder Pro";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -442,7 +457,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Drew.YarderPro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HumboldtStateUniveristy.YarderPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
