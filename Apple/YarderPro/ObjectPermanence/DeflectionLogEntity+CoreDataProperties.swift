@@ -70,4 +70,11 @@ extension DeflectionLogEntity {
 
 }
 
+extension DeflectionLogEntity {
+    var isDataValid: Bool {
+        // Check if required fields are filled (example with `spanGround` and `towerHeight`)
+        return spanGround > 0 && towerHeight > 0
+    }
+}
+
 extension DeflectionLogEntity : Identifiable {}

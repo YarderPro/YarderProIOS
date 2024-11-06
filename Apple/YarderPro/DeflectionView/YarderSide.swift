@@ -120,20 +120,15 @@ struct YarderSide: View{
                     Text("Deflection")
                         .font(.custom("Helvetica Neue", size: 19))
                     Spacer()
-//                    if $deflectionLog.isDataValid {
-                        if let deflection = deflectionLog.percentDeflection {
-                            Text("\(deflection)")  // Safe unwrapping
-                                .font(.custom("Helvetica Neue", size: 19))
-                        } else {
-                            Text("No deflection calculated")
-                                .foregroundColor(.red)
-                                .font(.custom("Helvetica Neue", size: 19))
-                        }
-//                    } else {
-//                        Text("Not enough data entered")
-//                            .foregroundColor(.red)
-//                            .font(.custom("Helvetica Neue", size: 19))
-//                    }
+                    if deflectionLog.isDataValid {
+                        // Display `percentDeflection` directly if it's a non-optional Double
+                        Text("\(deflectionLog.percentDeflection)")
+                            .font(.custom("Helvetica Neue", size: 19))
+                    } else {
+                        Text("Not enough data entered")
+                            .foregroundColor(.red)
+                            .font(.custom("Helvetica Neue", size: 19))
+                    }
                 }
             }
         }

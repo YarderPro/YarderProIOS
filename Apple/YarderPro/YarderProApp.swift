@@ -15,7 +15,7 @@ struct YarderProApp: App {
     
     var body: some Scene {
         WindowGroup {
-            DeflectionLogsView()
+            DeflectionLogsView(context: PersistenceController.shared.persistenceContainer.viewContext)
                 .environment(\.managedObjectContext, persistenceController.persistenceContainer.viewContext)
         }
     }
