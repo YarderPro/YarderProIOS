@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selectedTab = "Deflections"
-    @ObservedObject var deflectionLog: DeflectionLog
+    @Environment(\.managedObjectContext) private var viewContext
+    @ObservedObject var deflectionLog: DeflectionLogEntity
     
     var body: some View {
         VStack {
@@ -21,7 +22,7 @@ struct ContentView: View {
             }
            .pickerStyle(.segmented)
             
-            TabContent(selectedTab: selectedTab, deflectionLog: self.deflectionLog)
+            TabContent(selectedTab: selectedTab, deflectionLog: deflectionLog)
         }
     }
 }
@@ -40,7 +41,7 @@ struct DiagramView: View{
 }
     
 @ViewBuilder
-func TabContent(selectedTab: String, deflectionLog: DeflectionLog) -> some View {
+func TabContent(selectedTab: String, deflectionLog: DeflectionLogEntity) -> some View {
     switch selectedTab {
     case "Details":
         DeflectionDetails(deflectionLog: deflectionLog)
@@ -56,11 +57,20 @@ func TabContent(selectedTab: String, deflectionLog: DeflectionLog) -> some View 
     Spacer()
 }
 
-struct ContentView_Preview: PreviewProvider{
+struct ContentView_Preview: PreviewProvider {
     static var previews: some View {
-        VStack{
-            let demoLog = DeflectionLog()
-            ContentView(deflectionLog: demoLog)
+        // Use the preview PersistenceController context for testing
+        let context = PersistenceController.preview.persistenceContainer.viewContext
+        
+        // Create a sample DeflectionLogEntity for preview purposes
+        let sampleLog = DeflectionLogEntity(context: context)
+        sampleLog.logName = "Sample Log"
+        sampleLog.logDescription = "This is a sample log description."
+        sampleLog.logDate = Date()
+        
+        return NavigationView {
+            ContentView(deflectionLog: sampleLog)
+                .environment(\.managedObjectContext, context)
         }
     }
 }

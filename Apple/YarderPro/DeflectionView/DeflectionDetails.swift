@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct DeflectionDetails: View{
-    @ObservedObject var deflectionLog: DeflectionLogWrapper
+    @ObservedObject var deflectionLog: DeflectionLogEntity
+    @Environment(\.managedObjectContext) private var viewContext
     
     var body: some View{
         VStack{
@@ -186,9 +187,18 @@ struct DeflectionDetails: View{
 
 struct DeflectionDetails_Preview: PreviewProvider{
     static var previews: some View {
-        VStack{
-            let demoLog = PreviewDeflectionLogWrapper()
-            DeflectionDetails(deflectionLog: demoLog)
+        // Use the preview PersistenceController context for testing
+        let context = PersistenceController.preview.persistenceContainer.viewContext
+        
+        // Create a sample DeflectionLogEntity for preview purposes
+        let sampleLog = DeflectionLogEntity(context: context)
+        sampleLog.logName = "Sample Log"
+        sampleLog.logDescription = "This is a sample log description."
+        sampleLog.logDate = Date()
+        
+        return NavigationView {
+            DeflectionDetails(deflectionLog: sampleLog)
+                .environment(\.managedObjectContext, context)
         }
     }
 }

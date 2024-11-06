@@ -10,7 +10,9 @@ import SwiftUI
 
 
 struct AnchorSide: View {
-    @ObservedObject var deflectionLog: DeflectionLog
+    @ObservedObject var deflectionLog: DeflectionLogEntity
+    @Environment(\.managedObjectContext) private var viewContext
+    
     var body: some View {
         Text("Hello, World!")
     }
@@ -18,9 +20,18 @@ struct AnchorSide: View {
 
 struct AnchorSide_Preview: PreviewProvider {
     static var previews: some View {
-        VStack{
-            let demoLog = DeflectionLog()
-            AnchorSide(deflectionLog: demoLog)
+        // Use the preview PersistenceController context for testing
+        let context = PersistenceController.preview.persistenceContainer.viewContext
+        
+        // Create a sample DeflectionLogEntity for preview purposes
+        let sampleLog = DeflectionLogEntity(context: context)
+        sampleLog.logName = "Sample Log"
+        sampleLog.logDescription = "This is a sample log description."
+        sampleLog.logDate = Date()
+        
+        return NavigationView {
+            AnchorSide(deflectionLog: sampleLog)
+                .environment(\.managedObjectContext, context)
         }
     }
 }

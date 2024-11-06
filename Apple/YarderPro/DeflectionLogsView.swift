@@ -5,11 +5,16 @@
 //  Created by Drew Hengehold on 9/24/24.
 //
 import SwiftUI
-
+import CoreData
 
 struct DeflectionLogsView: View{
-    @StateObject var viewModel = DeflectionLogsViewModel()
+    @Environment(\.managedObjectContext) private var viewContext
+    @StateObject private var viewModel: DeflectionLogsViewModel
     @State private var isButtonPressed = false
+    
+    init(context: NSManagedObjectContext) {
+        _viewModel = StateObject(wrappedValue: DeflectionLogsViewModel(context: context))
+    }
     
     var body: some View{
         //Place header and list on the VStack
@@ -66,25 +71,37 @@ struct DeflectionLogsView: View{
                 
                     
                     //Start of list of relevant objects
-                    List{
-                        ForEach(viewModel.deflectionLogs){ log in
-                            NavigationLink(destination: ContentView(deflectionLog: log)) {
-                                Text(log.logName)
+                List(viewModel.deflectionLogs, id: \.id) { log in
+                    NavigationLink(destination: ContentView(deflectionLog: log)) {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(log.logName ?? "New Log")
+                                    .font(.title2)
+                                    .bold()
+                                Text(log.logDescription ?? "...")
                             }
+                            Spacer()
+                            Text(log.logDate?.formatted() ?? "") // Assuming you want to format the date
                         }
                     }
-                    .listStyle(.grouped)
-                    Spacer()
                 }
-                .navigationBarHidden(true)
+                .listStyle(.grouped)
+                .onAppear{ 
+                    viewModel.fetchDeflectionLogs()
+                }
+                Spacer()
             }
+            .navigationBarHidden(true)
+        }
     }
 }
 
-struct DeflectionLogsView_Preview: PreviewProvider{
+struct DeflectionLogsView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView{
-            DeflectionLogsView()
+        let context = PersistenceController.preview.persistenceContainer.viewContext
+        return NavigationView {
+            DeflectionLogsView(context: context)
+                .environment(\.managedObjectContext, context)
         }
     }
 }

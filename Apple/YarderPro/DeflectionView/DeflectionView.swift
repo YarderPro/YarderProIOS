@@ -8,61 +8,68 @@
 //This is to change the background of text feilds
 
 import SwiftUI
+import CoreData
 
-
-
-struct DeflectionView: View{
-    @ObservedObject var deflectionLog: DeflectionLog
-    var body:some View{
-        AnchorYarder(deflectionLog: self.deflectionLog)
+struct DeflectionView: View {
+    @ObservedObject var deflectionLog: DeflectionLogEntity
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    var body: some View {
+        AnchorYarder(deflectionLog: deflectionLog)
     }
 }
 
 struct AnchorYarder: View {
-    @ObservedObject var deflectionLog: DeflectionLog
+    @ObservedObject var deflectionLog: DeflectionLogEntity
+    @Environment(\.managedObjectContext) private var viewContext
 
     var body: some View {
         VStack {
-            Picker("Select a Tab", selection: $deflectionLog.yarderOrAnchor) {
-                Text("Yarder").tag(DeflectionLog.YarderOrAnchor.yarder) // Use enum case directly
-                Text("Anchor").tag(DeflectionLog.YarderOrAnchor.anchor) // Use enum case directly
+            // Picker with enum options
+            Picker("Select a Tab", selection: Binding(
+                get: { deflectionLog.yarderOrAnchorEnum },
+                set: { newValue in
+                    deflectionLog.yarderOrAnchorEnum = newValue
+                    saveContext()
+                }
+            )) {
+                Text("Yarder").tag(YarderOrAnchor.yarder)
+                Text("Anchor").tag(YarderOrAnchor.anchor)
             }
             .pickerStyle(.segmented)
 
-            // Ensure deflectionLog is not nil and properly initialized
-            slider(selectedTab: deflectionLog.yarderOrAnchor, deflectionLog: deflectionLog)
+            // Slider for different views based on selected tab
+            slider(selectedTab: deflectionLog.yarderOrAnchorEnum, deflectionLog: deflectionLog)
+        }
+    }
+
+    private func saveContext() {
+        if viewContext.hasChanges {
+            try? viewContext.save()
         }
     }
 }
 
+enum YarderOrAnchor: String, CaseIterable {
+    case yarder, anchor
+}
 
-struct AnchorView: View{
-    var body: some View{
-        Text("Anchor View")
+// Add computed property in DeflectionLogEntity to bridge enum to String
+extension DeflectionLogEntity {
+    var yarderOrAnchorEnum: YarderOrAnchor {
+        get { YarderOrAnchor(rawValue: yarderOrAnchor ?? "") ?? .yarder }
+        set { yarderOrAnchor = newValue.rawValue }
     }
 }
 
-
-
-
-
+// Slider view that changes based on selection
 @ViewBuilder
-func slider(selectedTab: DeflectionLog.YarderOrAnchor, deflectionLog: DeflectionLog) -> some View {
+func slider(selectedTab: YarderOrAnchor, deflectionLog: DeflectionLogEntity) -> some View {
     switch selectedTab {
     case .yarder:
-        YarderSide(deflectionLog: deflectionLog) // Ensure this view does not cause crashes
+        YarderSide(deflectionLog: deflectionLog)
     case .anchor:
-        AnchorView() // Ensure this view does not cause crashes
-    }
-    Spacer()
-}
-
-struct DeflectionView_Preview: PreviewProvider{
-    static var previews: some View {
-        VStack{
-            let demoLog = DeflectionLog()
-            DeflectionView(deflectionLog: demoLog)
-        }
+        AnchorSide(deflectionLog: deflectionLog)
     }
 }
 
