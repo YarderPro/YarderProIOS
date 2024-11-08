@@ -68,8 +68,8 @@ struct DeflectionDetails: View{
                 TextField(
                     " Description",
                     text: Binding(
-                        get: { deflectionLog.description ?? "" },
-                        set: { deflectionLog.description = $0.isEmpty ? nil : $0 }
+                        get: { deflectionLog.logDescription ?? "" },
+                        set: { deflectionLog.logDescription = $0.isEmpty ? "" : $0 }
                     )
                 )
                 .border(.secondary)

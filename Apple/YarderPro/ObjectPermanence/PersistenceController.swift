@@ -7,8 +7,6 @@
 
 import CoreData
 
-import CoreData
-
 class PersistenceController: ObservableObject {
     static let shared = PersistenceController()
     
@@ -19,12 +17,11 @@ class PersistenceController: ObservableObject {
         
         // Sample data setup for preview
         for i in 1...5 {
-            let deflectionLog = DeflectionLogEntity(context: viewContext)
-            deflectionLog.id = UUID()
-            deflectionLog.logName = "Test Log \(i)"
-            deflectionLog.logDescription = "Description for test log \(i)"
-            deflectionLog.logDate = Date()
-            deflectionLog.percentDeflection = Double.random(in: 0...100)
+            let log = DeflectionLogEntity(context: viewContext)
+            log.id = UUID()
+            log.logName = "Test Log \(i)"
+            log.logDescription = "Description for test log \(i)"
+            log.logDate = Date()
         }
         
         do {
@@ -38,7 +35,7 @@ class PersistenceController: ObservableObject {
     
     // Core Data container configuration
     lazy var persistenceContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "DeflectionLogEntity")
+        let container = NSPersistentContainer(name: "YarderPro")
         
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {

@@ -7,7 +7,7 @@
 
 
 import SwiftUI
-
+import CoreData
 
 struct AnchorSide: View {
     @ObservedObject var deflectionLog: DeflectionLogEntity

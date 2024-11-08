@@ -1,5 +1,5 @@
 //
-//  DeflectionLogEntity+CoreDataProperties.swift
+//  DeflectionLogEntity.swift
 //  YarderPro
 //
 //  Created by Drew Hengehold on 10/18/24.
@@ -25,10 +25,11 @@ extension DeflectionLogEntity {
     @NSManaged public var spanMidSpan: Double
     @NSManaged public var towerHeight: Double
     @NSManaged public var logLength: Double
+    
     @NSManaged public var id: UUID
   
     
-    @NSManaged public var logDate: Date?
+    @NSManaged public var logDate: Date
     @NSManaged public var logDescription: String?
     @NSManaged public var logName: String?
     @NSManaged public var percentDeflection: Double
@@ -40,12 +41,12 @@ extension DeflectionLogEntity {
 
     @NSManaged public var yarderOrAnchor: String?
 
-    public var yarderType: YarderType? {
+    public var yarderType: YarderType {
         get {
-            YarderType(rawValue: yarderOrAnchor ?? "")
+            YarderType(rawValue: yarderOrAnchor ?? "") ?? .yarder // Default to `.yarder` if nil
         }
         set {
-            yarderOrAnchor = newValue?.rawValue
+            yarderOrAnchor = newValue.rawValue
         }
     }
     
@@ -77,4 +78,3 @@ extension DeflectionLogEntity {
     }
 }
 
-extension DeflectionLogEntity : Identifiable {}

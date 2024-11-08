@@ -31,22 +31,23 @@ class DeflectionLogsViewModel: ObservableObject {
     
     // Add a new deflection log
     func addDeflectionLog() {
-        let newLog = DeflectionLogEntity(context: viewContext)
-        newLog.logName = "New Log"           // Set default values directly
-        newLog.logDescription = "..."
-        newLog.logDate = Date()
+        let log = DeflectionLogEntity(context: viewContext)
+        log.logName = "New Log"           // Set default values directly
+        log.logDescription = "..."
+        log.logDate = Date()
+        log.id = UUID()
         
         saveContext()
     }
     
     // Update properties of an existing deflection log
-    func updateDeflectionLog(log: DeflectionLogEntity, name: String?, description: String?, date: Date?) {
-        log.logName = name ?? log.logName
-        log.logDescription = description ?? log.logDescription
-        log.logDate = date ?? log.logDate
-        
-        saveContext()
-    }
+//    func updateDeflectionLog(log: DeflectionLogEntity, name: String?, description: String?, date: Date?) {
+//        log.logName = name ?? log.logName
+//        log.logDescription = description ?? log.logDescription
+//        log.logDate = date ?? log.logDate
+//        
+//        saveContext()
+//    }
     
     // Delete a specific deflection log
     func deleteDeflectionLog(log: DeflectionLogEntity) {

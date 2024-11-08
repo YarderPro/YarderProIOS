@@ -10,6 +10,6 @@ import Foundation
 import CoreData
 
 
-public class DeflectionLogEntity: NSManagedObject {
+public class DeflectionLogEntity: NSManagedObject, Identifiable {
 
 }
