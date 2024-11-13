@@ -83,6 +83,13 @@ struct DeflectionLogsView: View{
                             Spacer()
                             Text(log.logDate.formatted()) // Assuming you want to format the date
                         }
+                        .swipeActions {
+                            Button(role: .destructive){
+                                viewModel.deleteDeflectionLog(log: log)
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
                     }
                 }
                 .listStyle(.grouped)
