@@ -11,6 +11,10 @@ struct DeflectionDetails: View{
     @ObservedObject var deflectionLog: DeflectionLogEntity
     @Environment(\.managedObjectContext) private var viewContext
     
+    @State private var isEditingDescription: Bool = false
+    @State private var isEditingName: Bool = false
+    @FocusState private var isFocusedDescription: Bool
+    
     var body: some View{
         VStack{
             Text("Calculation Details")
@@ -28,22 +32,21 @@ struct DeflectionDetails: View{
                     .padding(.trailing, 10)
                     .foregroundColor(Color(.gray))
                 
-                TextField(
-                    " Calculation name",
-                    text: Binding(
-                        get: { deflectionLog.logName ?? "" },
-                        set: { deflectionLog.logName = $0.isEmpty ? nil : $0 }
-                    )
-                )
-                .border(.secondary)
-                .border(Color.gray)
-                .padding(.leading, 2)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(.trailing, 20)
-                .cornerRadius(3)
-                .frame(minWidth:0, maxWidth:.infinity)
+                TextField("Log Name", text: $deflectionLog.logName, onEditingChanged: { editing in
+                    isEditingName = editing
+                })
+                .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingName))
                 .font(.custom("Helvetica Neue", size: 19))
+                .onChange(of: deflectionLog.logName) {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        print("Failed to save context: \(error)")
+                    }
+                }
             }
+            
+            
             
             //Date
             HStack{
@@ -56,6 +59,8 @@ struct DeflectionDetails: View{
             }
             .padding([.leading, .trailing])
             
+            
+            
             //Description
             HStack{
                 Spacer()
@@ -64,25 +69,27 @@ struct DeflectionDetails: View{
                     .font(.custom("Helvetica Neue", size: 20))
                     .padding(.trailing, 10)
                     .foregroundColor(Color(.gray))
-                
-                TextField(
-                    " Description",
-                    text: Binding(
-                        get: { deflectionLog.logDescription ?? "" },
-                        set: { deflectionLog.logDescription = $0.isEmpty ? "" : $0 }
-                    )
-                )
-                .border(.secondary)
-                .border(Color.gray)
-                .padding(.leading, 2)
-                .padding(.trailing, 20)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .cornerRadius(3)
-                .frame(minWidth:0, maxWidth:.infinity)
-                .font(.custom("Helvetica Neue", size: 19))
+
+                TextField("Log Description", text: $deflectionLog.logDescription, axis: .vertical)
+                    .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isFocusedDescription))
+                    .font(.custom("Helvetica Neue", size: 19))
+                    .focused($isFocusedDescription)
+                    .onChange(of: isFocusedDescription) {
+                        isEditingDescription = false
+                    }
+                    .onChange(of: deflectionLog.logDescription) {
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            print("Failed to save context: \(error)")
+                        }
+                    }
             }
             .padding(.bottom, 40)
             
+            // THESE CAN BE ADDED LATER FOR LOCATION CONTROL IF NEEDED
+            
+            /*
             //North Coordinate
             HStack{
                 Spacer()
@@ -179,9 +186,11 @@ struct DeflectionDetails: View{
                 .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             Spacer()
+             */
+            
+            Spacer()
         }
     }
-    
 }
 
 

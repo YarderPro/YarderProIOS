@@ -16,6 +16,7 @@ extension DeflectionLogEntity {
         return NSFetchRequest<DeflectionLogEntity>(entityName: "DeflectionLogEntity")
     }
 
+    //These variables 
     @NSManaged public var eastCoord: Double
     @NSManaged public var westCoord: Double
     @NSManaged public var southCoord: Double
@@ -30,8 +31,8 @@ extension DeflectionLogEntity {
   
     
     @NSManaged public var logDate: Date
-    @NSManaged public var logDescription: String?
-    @NSManaged public var logName: String?
+    @NSManaged public var logDescription: String
+    @NSManaged public var logName: String
     @NSManaged public var percentDeflection: Double
     
     public enum YarderType: String {

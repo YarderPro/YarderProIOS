@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedTab = "Deflections"
+    @State private var selectedTab = "Details"
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var deflectionLog: DeflectionLogEntity
     

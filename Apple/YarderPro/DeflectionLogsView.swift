@@ -75,10 +75,10 @@ struct DeflectionLogsView: View{
                     NavigationLink(destination: ContentView(deflectionLog: log)) {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text(log.logName ?? "New Log")
+                                Text(log.logName)
                                     .font(.title2)
                                     .bold()
-                                Text(log.logDescription ?? "New Log Description")
+                                Text(log.logDescription)
                             }
                             Spacer()
                             Text(log.logDate.formatted()) // Assuming you want to format the date
