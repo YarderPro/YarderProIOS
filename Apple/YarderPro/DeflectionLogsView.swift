@@ -87,7 +87,7 @@ struct DeflectionLogsView: View{
                             Button(role: .destructive){
                                 viewModel.deleteDeflectionLog(log: log)
                             } label: {
-                                Label("Delete", systemImage: "trash")
+                                Label(Text("Delete", systemImage: "trash")
                             }
                         }
                     }
