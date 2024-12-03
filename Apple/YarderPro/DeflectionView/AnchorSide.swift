@@ -13,9 +13,8 @@ struct AnchorSide: View {
     @ObservedObject var deflectionLog: DeflectionLogEntity
     @Environment(\.managedObjectContext) private var viewContext
     
-    @State private var isEditingGround: Bool = false
+    @State private var isEditingTower: Bool = false
     @State private var isEditingMidSpan: Bool = false
-    @State private var isEditingTowerHeight: Bool = false
     @State private var isEditingLength: Bool = false
     
     private var decimalFormatter: NumberFormatter {
@@ -31,7 +30,7 @@ struct AnchorSide: View {
             Section{
                 HStack {
                     Spacer()
-                    Text("Angle to Ground")
+                    Text("Slope to Tower")
                         .font(.custom("Helvetica Neue", size: 19))
                         .frame(width: 150, height: 20)
                     
@@ -39,11 +38,12 @@ struct AnchorSide: View {
                     
                     // Use a temporary String to hold the input
                     
-                    TextField("Ground", value: ($deflectionLog.spanGround), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingGround = isEditing})
+                    TextField("Tower", value: ($deflectionLog.slopeToTower), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingTower = isEditing})
                         .font(.custom("Helvetica Neue", size: 19))
-                        .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingGround))
-                        .onChange(of: deflectionLog.spanGround) {
-                            deflectionLog.calculatePercentDeflection(context: viewContext)
+                        .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingTower))
+                        .keyboardType(.decimalPad)
+                        .onChange(of: deflectionLog.slopeToTower) {
+                            deflectionLog.calculateAnchorDeflection(context: viewContext)
                         }
                         .overlay(
                             Text("%")
@@ -56,17 +56,18 @@ struct AnchorSide: View {
                 
                 HStack{
                     Spacer()
-                    Text("Angle to Tailhold")
+                    Text("Slope to Middle")
                         .font(.custom("Helvetica Neue", size: 19))
                         .frame(width:150, height: 20)
                     
                     Spacer()
                     
-                    TextField("Mid Span", value: ($deflectionLog.spanMidSpan), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingMidSpan = isEditing})
+                    TextField("Mid Span", value: ($deflectionLog.slopeToMid), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingMidSpan = isEditing})
                         .font(.custom("Helvetica Neue", size: 19))
+                        .keyboardType(.decimalPad)
                         .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingMidSpan))
-                        .onChange(of: deflectionLog.spanMidSpan) {
-                            deflectionLog.calculatePercentDeflection(context: viewContext)
+                        .onChange(of: deflectionLog.slopeToMid) {
+                            deflectionLog.calculateAnchorDeflection(context: viewContext)
                         }
                         .overlay(
                             Text("%")
@@ -76,25 +77,7 @@ struct AnchorSide: View {
                         )
                 }
                 
-                HStack{
-                    Spacer()
-                    Text("Tower Height")
-                        .font(.custom("Helvetica Neue", size: 19))
-                        .frame(width:150, height: 20)
-                    
-                    Spacer()
-                    
-                    TextField("Tower Height", value: $deflectionLog.towerHeight, formatter: decimalFormatter, onEditingChanged: { editing in
-                        isEditingTowerHeight = editing
-                    })
-                    .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingTowerHeight))
-                    .keyboardType(.decimalPad)
-                    .font(.custom("Helvetica Neue", size: 19))
-                    .onChange(of: deflectionLog.towerHeight) {
-                        deflectionLog.calculatePercentDeflection(context: viewContext)
-                    }
-                }
-                
+                //Length section
                 HStack{
                     Spacer()
                     Text("Length of Cable")
@@ -103,28 +86,28 @@ struct AnchorSide: View {
                     
                     Spacer()
                     
-                    TextField("Length", value: $deflectionLog.logLength, formatter: decimalFormatter, onEditingChanged: { editing in
+                    TextField("Length", value: $deflectionLog.logLengthAnchor, formatter: decimalFormatter, onEditingChanged: { editing in
                         isEditingLength = editing
                     })
                     .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingLength))
                     .keyboardType(.decimalPad)
                     .font(.custom("Helvetica Neue", size: 19))
-                    .onChange(of: deflectionLog.logLength) {
-                        deflectionLog.calculatePercentDeflection(context: viewContext)
+                    .onChange(of: deflectionLog.logLengthAnchor) {
+                        deflectionLog.calculateAnchorDeflection(context: viewContext)
                     }
                 }
             }
             
             
             //Section for deflection
-            Section{
+            Section(header: Text("Anchor Side Deflection")){
                 HStack {
                     Text("Deflection")
                         .font(.custom("Helvetica Neue", size: 19))
                     Spacer()
-                    if deflectionLog.isDataValid {
+                    if deflectionLog.isDataValidAnchor {
                         // Display `percentDeflection` directly if it's a non-optional Double
-                        Text("\(deflectionLog.percentDeflection)")
+                        Text("\(deflectionLog.percentDeflectionAnchor)")
                             .font(.custom("Helvetica Neue", size: 19))
                     } else {
                         Text("Not enough data entered")
@@ -154,3 +137,25 @@ struct AnchorSide_Preview: PreviewProvider {
         }
     }
 }
+
+
+/*
+HStack{
+    Spacer()
+    Text("Tower Height")
+        .font(.custom("Helvetica Neue", size: 19))
+        .frame(width:150, height: 20)
+    
+    Spacer()
+    
+    TextField("Tower Height", value: $deflectionLog.towerHeight, formatter: decimalFormatter, onEditingChanged: { editing in
+        isEditingTowerHeight = editing
+    })
+    .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingTowerHeight))
+    .keyboardType(.decimalPad)
+    .font(.custom("Helvetica Neue", size: 19))
+    .onChange(of: deflectionLog.towerHeight) {
+        deflectionLog.calculatePercentDeflection(context: viewContext)
+    }
+}
+*/

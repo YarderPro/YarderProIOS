@@ -39,6 +39,7 @@ struct YarderSide: View{
                     
                     TextField("Ground", value: ($deflectionLog.spanGround), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingGround = isEditing})
                         .font(.custom("Helvetica Neue", size: 19))
+                        .keyboardType(.decimalPad)
                         .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingGround))
                         .onChange(of: deflectionLog.spanGround) {
                             deflectionLog.calculatePercentDeflection(context: viewContext)
@@ -62,6 +63,7 @@ struct YarderSide: View{
                     
                     TextField("Mid Span", value: ($deflectionLog.spanMidSpan), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingMidSpan = isEditing})
                         .font(.custom("Helvetica Neue", size: 19))
+                        .keyboardType(.decimalPad)
                         .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingMidSpan))
                         .onChange(of: deflectionLog.spanMidSpan) {
                             deflectionLog.calculatePercentDeflection(context: viewContext)
@@ -120,7 +122,7 @@ struct YarderSide: View{
                     Text("Deflection")
                         .font(.custom("Helvetica Neue", size: 19))
                     Spacer()
-                    if deflectionLog.isDataValid {
+                    if deflectionLog.isDataValidYarder {
                         // Display `percentDeflection` directly if it's a non-optional Double
                         Text("\(deflectionLog.percentDeflection)")
                             .font(.custom("Helvetica Neue", size: 19))

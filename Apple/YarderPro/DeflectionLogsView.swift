@@ -12,6 +12,8 @@ struct DeflectionLogsView: View{
     @StateObject private var viewModel = DeflectionLogsViewModel(context: PersistenceController.shared.persistenceContainer.viewContext)
     @State private var isButtonPressed = false
     
+    @State var isNavigationBarHidden: Bool = true
+    
     init(context: NSManagedObjectContext) {
         _viewModel = StateObject(wrappedValue: DeflectionLogsViewModel(context: context))
     }
@@ -65,12 +67,20 @@ struct DeflectionLogsView: View{
                         }
                         .padding(.trailing, 9)
                     }
+                
+//                Section{
+//                    HStack{
+//                        Text("Sort By")
+//                        Spacer()
+//                        Picker("Asending Order")
+//                            
+//                        }
+//                    }
+//                }
                     // End of HStack for header
                     
                 
-                
-                    
-                    //Start of list of relevant objects
+                //Start of list of relevant objects
                 List(viewModel.deflectionLogs) { log in
                     NavigationLink(destination: ContentView(deflectionLog: log)) {
                         HStack {
@@ -87,18 +97,18 @@ struct DeflectionLogsView: View{
                             Button(role: .destructive){
                                 viewModel.deleteDeflectionLog(log: log)
                             } label: {
-                                Label(Text("Delete", systemImage: "trash")
+                                Label("Delete", systemImage: "trash")
                             }
                         }
                     }
                 }
                 .listStyle(.grouped)
-                .onAppear{ 
-                    viewModel.fetchDeflectionLogs()
+                .onAppear{
+                    viewModel.fetchDeflectionLogs(sortedBy: "logName", ascending: true)
                 }
                 Spacer()
+
             }
-            .navigationBarHidden(true)
         }
     }
 }

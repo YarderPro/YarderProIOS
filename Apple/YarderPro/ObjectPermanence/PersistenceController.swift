@@ -16,14 +16,14 @@ class PersistenceController: ObservableObject {
         let viewContext = controller.persistenceContainer.viewContext
         
         // Sample data setup for preview
-        for i in 1...5 {
-            let log = DeflectionLogEntity(context: viewContext)
-            log.id = UUID()
-            log.logName = "Test Log \(i)"
-            log.logDescription = "Description for test log \(i)"
-            log.logDate = Date()
-        }
-        
+//        for i in 1...5 {
+//            let log = DeflectionLogEntity(context: viewContext)
+//            log.id = UUID()
+//            log.logName = "Test Log \(i)"
+//            log.logDescription = "Description for test log \(i)"
+//            log.logDate = Date()
+//        }
+//        
         do {
             try viewContext.save()
         } catch {

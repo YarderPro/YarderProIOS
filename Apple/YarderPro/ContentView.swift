@@ -48,7 +48,7 @@ func TabContent(selectedTab: String, deflectionLog: DeflectionLogEntity) -> some
     case "Deflections":
         DeflectionView(deflectionLog: deflectionLog)
     case "Tension":
-        TensionView() // Replace with your actual view
+        Tension(deflectionLog: deflectionLog) // Replace with your actual view
     case "Diagram":
         DiagramView() // Replace with your actual view
     default:
