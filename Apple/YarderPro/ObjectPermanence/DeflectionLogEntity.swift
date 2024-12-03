@@ -79,7 +79,7 @@ extension DeflectionLogEntity {
         }
         
         let spanDifference = abs(spanGround - spanMidSpan) / 2.2
-        let towerRatio = (towerHeight / logLength) / 2.2 * 100
+        let towerRatio = (towerHeight / logLength) / 2.2
         percentDeflection = spanDifference + towerRatio
         
         do {

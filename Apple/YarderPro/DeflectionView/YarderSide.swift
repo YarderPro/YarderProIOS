@@ -117,7 +117,7 @@ struct YarderSide: View{
             
             
             //Section for deflection
-            Section{
+            Section(header: Text("Yarder Side Deflection")){
                 HStack {
                     Text("Deflection")
                         .font(.custom("Helvetica Neue", size: 19))
