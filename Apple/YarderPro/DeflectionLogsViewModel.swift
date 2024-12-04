@@ -8,6 +8,11 @@
 import Foundation
 import CoreData
 
+/*
+ DESCRIPTION:
+ This file serves as the point of interraction for the DeflectionLogEntity, it also forms the array containing the DeflectionLogEntities, which helps to group these logs together for use. Containined within this class are the core functions for creating, deleting, and fetching logs.
+ */
+
 class DeflectionLogsViewModel: ObservableObject {
     @Published var deflectionLogs: [DeflectionLogEntity] = []
     private var viewContext: NSManagedObjectContext
@@ -40,7 +45,7 @@ class DeflectionLogsViewModel: ObservableObject {
         saveContext()
     }
     
-    // Update properties of an existing deflection log
+    // Update properties of an existing deflection log, removed because files are updated within the application, thus we do not need and update DeflectionLog file.
 //    func updateDeflectionLog(log: DeflectionLogEntity, name: String?, description: String?, date: Date?) {
 //        log.logName = name ?? log.logName
 //        log.logDescription = description ?? log.logDescription

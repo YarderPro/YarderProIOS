@@ -5,21 +5,16 @@
 //  Created by Drew Hengehold on 10/16/24.
 //
 
-//This is to change the background of text feilds
 
 import SwiftUI
 import CoreData
 
-struct DeflectionView: View {
-    @ObservedObject var deflectionLog: DeflectionLogEntity
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    var body: some View {
-        AnchorYarder(deflectionLog: deflectionLog)
-    }
-}
+/*
+ DESCRIPTION:
+ To achieve the nested tab view in the View which calulates deflection using the anchor side and yarder side, YarderPro uses the DeflectionView file to arrange the tabs accordingly. Selection of a new tab will change the current view, the enum properties of this view could be repetative with DeflectionLogEnitity but messing with that could cause problems. For any issues with the Deflections tab or the Anchor Yarder tab this is the file to refrence. 
+ */
 
-struct AnchorYarder: View {
+struct DeflectionView: View {
     @ObservedObject var deflectionLog: DeflectionLogEntity
     @Environment(\.managedObjectContext) private var viewContext
 

@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+/*
+ All text feilds used within YarderPro come from this custom text feild style struct, the is editing porition of this code allows for the change in color when a box is selected. 
+ */
+
 struct CustomBorderedTextFieldStyle: TextFieldStyle {
     var isEditing: Bool
 

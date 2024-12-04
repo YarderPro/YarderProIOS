@@ -7,6 +7,11 @@
 
 import CoreData
 
+/*
+DESCRIPTION:
+ Refrence this documentation by apple for more context: https://developer.apple.com/documentation/coredata/setting_up_a_core_data_stack. The persistence controller provides viewContext used in previews, simulations, and the application. Context is the changes made by the application, saving context using the persistence controller changes the MSManaged variables and in turn the YarderPro Xmodeled file. If you are DEBUGING, come to this file first, most errors with core data origionate with from persistence controller in my experience.
+ */
+
 class PersistenceController: ObservableObject {
     static let shared = PersistenceController()
     

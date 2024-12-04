@@ -5,6 +5,11 @@
 //  Created by Drew Hengehold on 10/16/24.
 //
 
+/*
+ DESCRIPTION:
+ This file forms the first view seen in the slider the "Details" view. Details allows the user to modify the Name, Details, and Date.
+ */
+
 import SwiftUI
 
 struct DeflectionDetails: View{
@@ -87,107 +92,6 @@ struct DeflectionDetails: View{
             }
             .padding(.bottom, 40)
             
-            // THESE CAN BE ADDED LATER FOR LOCATION CONTROL IF NEEDED
-            
-            /*
-            //North Coordinate
-            HStack{
-                Spacer()
-                Text("North Coordinate")
-                    .frame(minWidth:0, maxWidth:.infinity, alignment:.trailing)
-                    .font(.custom("Helvetica Neue", size: 20))
-                    .padding(.trailing, 10)
-                    .foregroundColor(Color(.gray))
-                
-                TextField(
-                    " North Coordinate",
-                    value: $deflectionLog.northCoord,
-                    formatter: NumberFormatter()
-                )
-                .border(.secondary)
-                .border(Color.gray)
-                .padding(.leading, 2)
-                .padding(.trailing, 20)
-                .cornerRadius(3)
-                .frame(minWidth:0, maxWidth:.infinity)
-                .font(.custom("Helvetica Neue", size: 19))
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            
-            //South Coordinate
-            HStack{
-                Spacer()
-                Text("South Coordinate")
-                    .frame(minWidth:0, maxWidth:.infinity, alignment:.trailing)
-                    .font(.custom("Helvetica Neue", size: 20))
-                    .padding(.trailing, 10)
-                    .foregroundColor(Color(.gray))
-                
-                TextField(
-                    " South Coordinate",
-                    value: $deflectionLog.southCoord,
-                    formatter: NumberFormatter()
-                )
-                .border(.secondary)
-                .border(Color.gray)
-                .padding(.leading, 2)
-                .padding(.trailing, 20)
-                .cornerRadius(3)
-                .frame(minWidth:0, maxWidth:.infinity)
-                .font(.custom("Helvetica Neue", size: 19))
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            
-            //East Coordinate
-            HStack{
-                Spacer()
-                Text("East Coordinate")
-                    .frame(minWidth:0, maxWidth:.infinity, alignment:.trailing)
-                    .font(.custom("Helvetica Neue", size: 20))
-                    .padding(.trailing, 10)
-                    .foregroundColor(Color(.gray))
-                
-                TextField(
-                    " East Coordinate",
-                    value: $deflectionLog.eastCoord,
-                    formatter: NumberFormatter()
-                )
-                .border(.secondary)
-                .border(Color.gray)
-                .padding(.leading, 2)
-                .padding(.trailing, 20)
-                .cornerRadius(3)
-                .frame(minWidth:0, maxWidth:.infinity)
-                .font(.custom("Helvetica Neue", size: 19))
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            
-            //West Coordinate
-            HStack{
-                Spacer()
-                Text("West Coordinate")
-                    .frame(minWidth:0, maxWidth:.infinity, alignment:.trailing)
-                    .font(.custom("Helvetica Neue", size: 20))
-                    .padding(.trailing, 10)
-                    .foregroundColor(Color(.gray))
-                
-                TextField(
-                    " West Coordinate",
-                    value: $deflectionLog.westCoord,
-                    formatter: NumberFormatter()
-                )
-                .border(.secondary)
-                .border(Color.gray)
-                .padding(.leading, 2)
-                .padding(.trailing, 20)
-                .cornerRadius(3)
-                .frame(minWidth:0, maxWidth:.infinity)
-                .font(.custom("Helvetica Neue", size: 19))
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            Spacer()
-             */
-            
             Spacer()
         }
     }
@@ -211,3 +115,105 @@ struct DeflectionDetails_Preview: PreviewProvider{
         }
     }
 }
+
+
+// THESE CAN BE ADDED LATER FOR LOCATION CONTROL IF NEEDED
+
+/*
+//North Coordinate
+HStack{
+    Spacer()
+    Text("North Coordinate")
+        .frame(minWidth:0, maxWidth:.infinity, alignment:.trailing)
+        .font(.custom("Helvetica Neue", size: 20))
+        .padding(.trailing, 10)
+        .foregroundColor(Color(.gray))
+    
+    TextField(
+        " North Coordinate",
+        value: $deflectionLog.northCoord,
+        formatter: NumberFormatter()
+    )
+    .border(.secondary)
+    .border(Color.gray)
+    .padding(.leading, 2)
+    .padding(.trailing, 20)
+    .cornerRadius(3)
+    .frame(minWidth:0, maxWidth:.infinity)
+    .font(.custom("Helvetica Neue", size: 19))
+    .textFieldStyle(RoundedBorderTextFieldStyle())
+}
+
+//South Coordinate
+HStack{
+    Spacer()
+    Text("South Coordinate")
+        .frame(minWidth:0, maxWidth:.infinity, alignment:.trailing)
+        .font(.custom("Helvetica Neue", size: 20))
+        .padding(.trailing, 10)
+        .foregroundColor(Color(.gray))
+    
+    TextField(
+        " South Coordinate",
+        value: $deflectionLog.southCoord,
+        formatter: NumberFormatter()
+    )
+    .border(.secondary)
+    .border(Color.gray)
+    .padding(.leading, 2)
+    .padding(.trailing, 20)
+    .cornerRadius(3)
+    .frame(minWidth:0, maxWidth:.infinity)
+    .font(.custom("Helvetica Neue", size: 19))
+    .textFieldStyle(RoundedBorderTextFieldStyle())
+}
+
+//East Coordinate
+HStack{
+    Spacer()
+    Text("East Coordinate")
+        .frame(minWidth:0, maxWidth:.infinity, alignment:.trailing)
+        .font(.custom("Helvetica Neue", size: 20))
+        .padding(.trailing, 10)
+        .foregroundColor(Color(.gray))
+    
+    TextField(
+        " East Coordinate",
+        value: $deflectionLog.eastCoord,
+        formatter: NumberFormatter()
+    )
+    .border(.secondary)
+    .border(Color.gray)
+    .padding(.leading, 2)
+    .padding(.trailing, 20)
+    .cornerRadius(3)
+    .frame(minWidth:0, maxWidth:.infinity)
+    .font(.custom("Helvetica Neue", size: 19))
+    .textFieldStyle(RoundedBorderTextFieldStyle())
+}
+
+//West Coordinate
+HStack{
+    Spacer()
+    Text("West Coordinate")
+        .frame(minWidth:0, maxWidth:.infinity, alignment:.trailing)
+        .font(.custom("Helvetica Neue", size: 20))
+        .padding(.trailing, 10)
+        .foregroundColor(Color(.gray))
+    
+    TextField(
+        " West Coordinate",
+        value: $deflectionLog.westCoord,
+        formatter: NumberFormatter()
+    )
+    .border(.secondary)
+    .border(Color.gray)
+    .padding(.leading, 2)
+    .padding(.trailing, 20)
+    .cornerRadius(3)
+    .frame(minWidth:0, maxWidth:.infinity)
+    .font(.custom("Helvetica Neue", size: 19))
+    .textFieldStyle(RoundedBorderTextFieldStyle())
+}
+Spacer()
+ */

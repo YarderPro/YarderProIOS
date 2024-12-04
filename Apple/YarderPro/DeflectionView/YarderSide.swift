@@ -1,9 +1,15 @@
 //
-//  DeflectionView.swift
+//  YarderSide.swift
 //  YarderPro
 //
 //  Created by Drew Hengehold on 10/17/24.
 //
+
+/*
+ DESCRIPTION:
+This forms the core calculation for the Yarder Pro application, the yarder side calculation of percent slope. Ideally, this file will be updated in the future to allow for changing the unit plugged into Height and Length so that loggers in other countries can use this application seemlessly. The code for these toggles is commented out but has been worked on. These variables must be added to the DeflectionLogEntity class and the Xmodeled file to esure they're saved in core data.
+
+ */
 
 import SwiftUI
 

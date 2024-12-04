@@ -6,6 +6,12 @@
 //
 
 /*
+ 
+ NO LONGER IN USE
+ FILE DESCRIPTION:
+ This file was created before the development of data persistence, the use of this file is no longer necissary, however, it is still prestn for refrence and context to the creation of the new DeflectionLogEntity.swift which drew inspiration from this file. 
+ 
+ 
 import Foundation
 import CoreData
 

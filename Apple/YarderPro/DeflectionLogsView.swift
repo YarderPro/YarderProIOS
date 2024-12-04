@@ -4,6 +4,15 @@
 //
 //  Created by Drew Hengehold on 9/24/24.
 //
+
+/*
+ DESCRIPTION:
+ This file forms the log history, button for creating new logs, and deletion feature. Initialization takes place here, and its done using the @State variables. This file is what is called first in the application and is essentially the basis for creating the DeflectionLogs and view model.
+ 
+ IMPORTANT: For some reason the preview in this file has moments where it crashes. A fix is still unknown, however it often solves itself and its only restricted to the preview, therefore its likely due to the build. 
+ */
+
+
 import SwiftUI
 import CoreData
 

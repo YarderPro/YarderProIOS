@@ -9,6 +9,10 @@
 import Foundation
 import CoreData
 
+/*
+ DESCRIPTION:
+ This is the core file for  the deflection log entity class, creating MSManaged variables. As an extension of the class, it provides the necissary declarations of variables and functions. Within the class, variables are catagorized acording to use within the application. While reading this file, look at the YarderPro data modeled file 'YarderPro.xcdatamodeld' to better understand what the MSManaged variables are refrencing. These functions include calculation
+ */
 
 extension DeflectionLogEntity {
 

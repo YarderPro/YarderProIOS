@@ -5,6 +5,11 @@
 //  Created by Drew Hengehold on 12/2/24.
 //
 
+/*
+ DESCRIPTION:
+ The tension calculator is used to calculate tension in the cable. THIS FILE NEEDS THE MOST WORK. Variables in this file are dependent on the deflections tab, and are thus unable to be inputed in the tension tab. To fix this issue, future modifiers should make variables that are initialized with the values used in deflection but can be modified after. The equation for tension is listed at the top of the file, but it calculated in the DeflectionLogEntity class.
+ */
+
 import SwiftUI
 
 //Cable Tension = (Length M * Load KG) / (4 * deflection in M) + (weight per unit length kg * Length m ^2) / (8 * deflection in M)

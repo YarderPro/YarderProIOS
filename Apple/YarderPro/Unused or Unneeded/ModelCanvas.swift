@@ -5,6 +5,13 @@
 //  Created by Drew Hengehold on 10/15/24.
 //
 
+/*
+ DESCRIPTION:
+ A plan for the future, this is how the diagram will be created in the future, and the math for the diagram is layed out in documentation for the app. However the mathematics are complex and still a bit unclear. Unstanding the Canvas Library of swiftui is essential to creating this model.
+ 
+ NOTE, THIS IS STILL IN PROGRESS AND THUS IS NOT FULLY COMMENTED FOR INSTILLED WITHIN THE APP
+ */
+
 import SwiftUI
 
 struct ModelDrawing: View{

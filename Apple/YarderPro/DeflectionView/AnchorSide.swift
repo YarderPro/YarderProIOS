@@ -9,6 +9,11 @@
 import SwiftUI
 import CoreData
 
+/*
+ DESCRIPTION:
+ This file creates the View for the anchor side of YarderPro. Anchor side is calculations done from the tailhold. The inputs are listed here as a form, all calculations are done within the DeflectionLogEntity class and can be modified there.
+ */
+
 struct AnchorSide: View {
     @ObservedObject var deflectionLog: DeflectionLogEntity
     @Environment(\.managedObjectContext) private var viewContext
