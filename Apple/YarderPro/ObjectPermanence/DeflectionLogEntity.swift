@@ -79,7 +79,7 @@ extension DeflectionLogEntity {
         }
         
         let spanDifference = abs(spanGround - spanMidSpan) / 2.2
-        let towerRatio = (towerHeight / logLength) / 2.2
+        let towerRatio = (towerHeight / logLength) / 2.2 * 100
         percentDeflection = spanDifference + towerRatio
         
         do {
@@ -159,11 +159,11 @@ extension DeflectionLogEntity {
 extension DeflectionLogEntity {
     var isDataValidYarder: Bool {
         // Check if required fields are filled (example with `spanGround` and `towerHeight`)
-        return logLength > 0 && percentDeflection > 0 && spanGround > 0 && towerHeight > 0
+        return logLength > 0 && spanMidSpan > 0 && spanGround > 0 && towerHeight > 0 && spanGround < 90 && spanMidSpan < 90 && percentDeflection > 0
     }
     var isDataValidAnchor: Bool {
         // Check if required fields are filled (example with `spanGround` and `towerHeight`)
-        return logLengthAnchor > 0 && percentDeflectionAnchor > 0 && slopeToTower > 0 && slopeToMid > 0
+        return logLengthAnchor > 0 && percentDeflectionAnchor > 0 && slopeToTower > 0 && slopeToMid > 0 && slopeToMid < 90 && slopeToTower < 90
     }
 }
 

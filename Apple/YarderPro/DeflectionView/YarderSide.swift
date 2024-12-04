@@ -16,6 +16,9 @@ struct YarderSide: View{
     @State private var isEditingTowerHeight: Bool = false
     @State private var isEditingLength: Bool = false
     
+//    @State private var buttonHeight: Bool = false
+//    @State private var buttonLength: Bool = false
+    
     private var decimalFormatter: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -29,9 +32,9 @@ struct YarderSide: View{
             Section{
                 HStack {
                     Spacer()
-                    Text("Angle to Ground")
+                    Text("Slope to Mid Span")
                         .font(.custom("Helvetica Neue", size: 19))
-                        .frame(width: 150, height: 20)
+                        .frame(width: 150, height: 50)
                     
                     Spacer()
                     
@@ -55,7 +58,7 @@ struct YarderSide: View{
                 
                 HStack{
                     Spacer()
-                    Text("Angle to Tailhold")
+                    Text("Slope to Tailhold")
                         .font(.custom("Helvetica Neue", size: 19))
                         .frame(width:150, height: 20)
                     
@@ -93,13 +96,30 @@ struct YarderSide: View{
                     .onChange(of: deflectionLog.towerHeight) {
                         deflectionLog.calculatePercentDeflection(context: viewContext)
                     }
+                    
+                    // Meter v Yard toggle
+//                    Toggle(isOn: $buttonHeight, label: {
+//                        HStack {
+//                            Spacer()
+//                            if(buttonHeight == true){
+//                                Image(systemName: "y.square")
+//                                    .foregroundColor(.green)
+//                                    .font(.system(size: 20))
+//                            }
+//                            else{
+//                                Image(systemName: "m.square")
+//                                    .foregroundColor(.gray)
+//                                    .font(.system(size: 20))
+//                            }
+//                        }
+//                    })
                 }
                 
                 HStack{
                     Spacer()
-                    Text("Length of Cable")
+                    Text("Length from \nTower to Anchor")
                         .font(.custom("Helvetica Neue", size: 19))
-                        .frame(width:150, height: 20)
+                        .frame(width:150, height: 60)
                     
                     Spacer()
                     
@@ -112,6 +132,22 @@ struct YarderSide: View{
                     .onChange(of: deflectionLog.logLength) {
                         deflectionLog.calculatePercentDeflection(context: viewContext)
                     }
+                    // Meter v Yard toggle
+//                    Toggle(isOn: $buttonLength, label: {
+//                        HStack {
+//                            Spacer()
+//                            if(buttonLength == true){
+//                                Image(systemName: "y.square")
+//                                    .foregroundColor(.green)
+//                                    .font(.system(size: 20))
+//                            }
+//                            else{
+//                                Image(systemName: "m.square")
+//                                    .foregroundColor(.gray)
+//                                    .font(.system(size: 20))
+//                            }
+//                        }
+//                    })
                 }
             }
             
@@ -126,8 +162,20 @@ struct YarderSide: View{
                         // Display `percentDeflection` directly if it's a non-optional Double
                         Text("\(deflectionLog.percentDeflection)")
                             .font(.custom("Helvetica Neue", size: 19))
-                    } else {
-                        Text("Not enough data entered")
+                    }else if(deflectionLog.logLength == 0){
+                        Text("Log Length Must not be 0")
+                            .foregroundColor(.red)
+                            .font(.custom("Helvetica Neue", size: 19))
+                    }else if(deflectionLog.spanMidSpan >= 90){
+                        Text("MidSpan Slope must be less than 90")
+                            .foregroundColor(.red)
+                            .font(.custom("Helvetica Neue", size: 19))
+                    }else if(deflectionLog.spanGround >= 90){
+                        Text("Ground Slope must be less than 90")
+                            .foregroundColor(.red)
+                            .font(.custom("Helvetica Neue", size: 19))
+                    }else{
+                        Text("Enter all values")
                             .foregroundColor(.red)
                             .font(.custom("Helvetica Neue", size: 19))
                     }

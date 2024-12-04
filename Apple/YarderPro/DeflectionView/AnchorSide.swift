@@ -56,9 +56,9 @@ struct AnchorSide: View {
                 
                 HStack{
                     Spacer()
-                    Text("Slope to Middle")
+                    Text("Slope to Mid Span")
                         .font(.custom("Helvetica Neue", size: 19))
-                        .frame(width:150, height: 20)
+                        .frame(width:150, height: 60)
                     
                     Spacer()
                     
@@ -80,9 +80,9 @@ struct AnchorSide: View {
                 //Length section
                 HStack{
                     Spacer()
-                    Text("Length of Cable")
+                    Text("Length from \nAnchor to Tower")
                         .font(.custom("Helvetica Neue", size: 19))
-                        .frame(width:150, height: 20)
+                        .frame(width:150, height: 60)
                     
                     Spacer()
                     
