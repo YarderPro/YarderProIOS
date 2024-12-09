@@ -114,6 +114,12 @@ struct AnchorSide: View {
                         // Display `percentDeflection` directly if it's a non-optional Double
                         Text("\(deflectionLog.percentDeflectionAnchor)")
                             .font(.custom("Helvetica Neue", size: 19))
+                            .overlay(
+                                Text("%")
+                                    .foregroundColor(.gray)
+                                    .padding(.trailing, 8),
+                                alignment: .trailing
+                            )
                     } else {
                         Text("Not enough data entered")
                             .foregroundColor(.red)

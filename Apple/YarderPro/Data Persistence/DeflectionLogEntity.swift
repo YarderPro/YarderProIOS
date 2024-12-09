@@ -101,11 +101,11 @@ extension DeflectionLogEntity {
             print("Log length is zero, cannot calculate percent deflection.")
             return
         }
+        // (abs(slopeToTower - slopeToMidPoint) /2.2) / length From Yarder to anchor
+        let slope = abs(slopeToTower - slopeToMid)
+        let ftDeflection = (slope * logLengthAnchor)/2
         
-        let difference = abs(slopeToTower - slopeToMid) / 2.2
-        let divison = difference / logLengthAnchor
-        
-        percentDeflectionAnchor = divison * 100
+        percentDeflectionAnchor = ftDeflection / logLengthAnchor
         
         do {
             if context.hasChanges {
