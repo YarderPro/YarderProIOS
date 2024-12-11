@@ -26,10 +26,10 @@ struct Tension: View{
     //Variable used to check if the user is doing a yarder or anchor calculation, needed to know which length and deflection to us
     private var settingDeflection: Bool {
         if(deflectionLog.yarderType == .yarder){
-            deflectionLog.calculateMidSpanDeflection(context: viewContext, deflection: deflectionLog.percentDeflection, length: deflectionLog.logLength)
+            deflectionLog.calculateMidSpanDeflection(context: viewContext, deflection: deflectionLog.percentDeflectionYarderSide, length: deflectionLog.spanLength)
             return true
         }else{
-            deflectionLog.calculateMidSpanDeflection(context: viewContext, deflection: deflectionLog.percentDeflectionAnchor, length: deflectionLog.logLengthAnchor)
+            deflectionLog.calculateMidSpanDeflection(context: viewContext, deflection: deflectionLog.percentDeflectionAnchor, length: deflectionLog.spanLengthAnchor)
             return false
         }
     }
@@ -92,23 +92,23 @@ struct Tension: View{
                     
                     //Need to make sure that the length being edited is the correct one, are we in Yarder or Anchor mode
                     if(settingDeflection == true){
-                        TextField("Length in Meters", value: $deflectionLog.logLength, formatter: decimalFormatter, onEditingChanged: { editing in
+                        TextField("Length in Meters", value: $deflectionLog.spanLength, formatter: decimalFormatter, onEditingChanged: { editing in
                             isEditingLength = editing
                         })
                         .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingLength))
                         .keyboardType(.decimalPad)
                         .font(.custom("Helvetica Neue", size: 19))
-                        .onChange(of: deflectionLog.logLength) {
+                        .onChange(of: deflectionLog.spanLength) {
                             deflectionLog.calculateTension(context: viewContext, deflectionType: settingDeflection)
                         }
                     }else{
-                        TextField("Length in Meters", value: $deflectionLog.logLengthAnchor, formatter: decimalFormatter, onEditingChanged: { editing in
+                        TextField("Length in Meters", value: $deflectionLog.spanLengthAnchor, formatter: decimalFormatter, onEditingChanged: { editing in
                             isEditingLength = editing
                         })
                         .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingLength))
                         .keyboardType(.decimalPad)
                         .font(.custom("Helvetica Neue", size: 19))
-                        .onChange(of: deflectionLog.logLengthAnchor) {
+                        .onChange(of: deflectionLog.spanLengthAnchor) {
                             deflectionLog.calculateTension(context: viewContext, deflectionType: settingDeflection)
                         }
                     }
@@ -122,13 +122,13 @@ struct Tension: View{
                     
                     Spacer()
                     
-                    TextField("Midspan Deflection (m)", value: $deflectionLog.midSpanDeflection, formatter: decimalFormatter, onEditingChanged: { editing in
+                    TextField("Midspan Deflection (m)", value: $deflectionLog.midSpanDeflectionMeters, formatter: decimalFormatter, onEditingChanged: { editing in
                         isEditingDeflection = editing
                     })
                     .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingDeflection))
                     .keyboardType(.decimalPad)
                     .font(.custom("Helvetica Neue", size: 19))
-                    .onChange(of: deflectionLog.midSpanDeflection) {
+                    .onChange(of: deflectionLog.midSpanDeflectionMeters) {
                         deflectionLog.calculateTension(context: viewContext, deflectionType: settingDeflection)
                     }
                 }

@@ -67,11 +67,11 @@ struct AnchorSide: View {
                     
                     Spacer()
                     
-                    TextField("Mid Span", value: ($deflectionLog.slopeToMid), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingMidSpan = isEditing})
+                    TextField("Mid Span", value: ($deflectionLog.slopeToMidSpanAnchor), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingMidSpan = isEditing})
                         .font(.custom("Helvetica Neue", size: 19))
                         .keyboardType(.decimalPad)
                         .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingMidSpan))
-                        .onChange(of: deflectionLog.slopeToMid) {
+                        .onChange(of: deflectionLog.slopeToMidSpanAnchor) {
                             deflectionLog.calculateAnchorDeflection(context: viewContext)
                         }
                         .overlay(
@@ -91,13 +91,13 @@ struct AnchorSide: View {
                     
                     Spacer()
                     
-                    TextField("Length", value: $deflectionLog.logLengthAnchor, formatter: decimalFormatter, onEditingChanged: { editing in
+                    TextField("Length", value: $deflectionLog.spanLengthAnchor, formatter: decimalFormatter, onEditingChanged: { editing in
                         isEditingLength = editing
                     })
                     .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingLength))
                     .keyboardType(.decimalPad)
                     .font(.custom("Helvetica Neue", size: 19))
-                    .onChange(of: deflectionLog.logLengthAnchor) {
+                    .onChange(of: deflectionLog.spanLengthAnchor) {
                         deflectionLog.calculateAnchorDeflection(context: viewContext)
                     }
                 }

@@ -27,23 +27,23 @@ extension DeflectionLogEntity {
     @NSManaged public var northCoord: Double
     
     //Values used to calculate deflection on the yarder side, ground, midspan, height, length, and deflection from the yarder side.
-    @NSManaged public var spanGround: Double
-    @NSManaged public var spanMidSpan: Double
+    @NSManaged public var slopeToAnchor: Double
+    @NSManaged public var slopeMidSpan: Double
     @NSManaged public var towerHeight: Double
-    @NSManaged public var logLength: Double
-    @NSManaged public var percentDeflection: Double
+    @NSManaged public var spanLength: Double
+    @NSManaged public var percentDeflectionYarderSide: Double
     
     //Values used to calculate deflection on the anchor side
     @NSManaged public var slopeToTower: Double
-    @NSManaged public var slopeToMid: Double
-    @NSManaged public var logLengthAnchor: Double
+    @NSManaged public var slopeToMidSpanAnchor: Double
+    @NSManaged public var spanLengthAnchor: Double
     @NSManaged public var percentDeflectionAnchor: Double
     
     //Values used to calculate Tension
     @NSManaged public var tension: Double
     @NSManaged public var cableWeight: Double
     @NSManaged public var totalLoad: Double
-    @NSManaged public var midSpanDeflection: Double
+    @NSManaged public var midSpanDeflectionMeters: Double
     
     //To keep the entity identifiable we need an id
     @NSManaged public var id: UUID
@@ -77,14 +77,14 @@ extension DeflectionLogEntity {
     
     // Used to calculate percent deflection on the yarder Side, uses equation % Deflection = (Sground– Smidspan) / 2.2 + (TowerH / Length) / 2.2 x 100%
     public func calculatePercentDeflection(context: NSManagedObjectContext) {
-        guard logLength != 0 else {
+        guard spanLength != 0 else {
             print("Log length is zero, cannot calculate percent deflection.")
             return
         }
         
-        let spanDifference = abs(spanGround - spanMidSpan) / 2.2
-        let towerRatio = (towerHeight / logLength) / 2.2
-        percentDeflection = spanDifference + towerRatio
+        let spanDifference = abs(slopeToAnchor - slopeMidSpan) / 2.2
+        let towerRatio = (towerHeight / spanLength) / 2.2
+        percentDeflectionYarderSide = spanDifference + towerRatio
         
         do {
             if context.hasChanges {
@@ -97,15 +97,15 @@ extension DeflectionLogEntity {
     
     // This function is used to calculate the deflection from the anchor side
     public func calculateAnchorDeflection(context: NSManagedObjectContext) {
-        guard logLengthAnchor != 0 else {
+        guard spanLengthAnchor != 0 else {
             print("Log length is zero, cannot calculate percent deflection.")
             return
         }
         // (abs(slopeToTower - slopeToMidPoint) /2.2) / length From Yarder to anchor
-        let slope = abs(slopeToTower - slopeToMid)
-        let ftDeflection = (slope * logLengthAnchor)/2
+        let slope = abs(slopeToTower - slopeToMidSpanAnchor)
+        let ftDeflection = (slope * spanLengthAnchor)/2
         
-        percentDeflectionAnchor = ftDeflection / logLengthAnchor
+        percentDeflectionAnchor = ftDeflection / spanLengthAnchor
         
         do {
             if context.hasChanges {
@@ -124,11 +124,11 @@ extension DeflectionLogEntity {
             return
         }
         
-        midSpanDeflection = (deflection / 100) * length
+        midSpanDeflectionMeters = (deflection / 100) * length
     }
     
     public func calculateTension(context: NSManagedObjectContext, deflectionType: Bool) {
-        guard logLengthAnchor != 0 || logLength != 0 else {
+        guard spanLengthAnchor != 0 || spanLength != 0 else {
             print("Log length is zero, cannot calculate percent deflection.")
             return
         }
@@ -136,17 +136,17 @@ extension DeflectionLogEntity {
         var totalLength: Double
         
         if(deflectionType == true){
-            totalLength = logLength
+            totalLength = spanLength
         }else{
-            totalLength = logLengthAnchor
+            totalLength = spanLengthAnchor
         }
         
         
         let lengthLoad = totalLength * totalLoad
-        let loadDeflection = lengthLoad / (4 * midSpanDeflection)
+        let loadDeflection = lengthLoad / (4 * midSpanDeflectionMeters)
         
         let weightPerUnitLength = cableWeight * pow(totalLength, 2)
-        let weightDeflection = weightPerUnitLength / (8 * midSpanDeflection)
+        let weightDeflection = weightPerUnitLength / (8 * midSpanDeflectionMeters)
         
         tension = (loadDeflection + weightDeflection)
         
@@ -163,11 +163,11 @@ extension DeflectionLogEntity {
 extension DeflectionLogEntity {
     var isDataValidYarder: Bool {
         // Check if required fields are filled (example with `spanGround` and `towerHeight`)
-        return logLength > 0 && spanMidSpan > 0 && spanGround > 0 && towerHeight > 0 && spanGround < 90 && spanMidSpan < 90 && percentDeflection > 0
+        return spanLength > 0 && slopeMidSpan > 0 && slopeToAnchor > 0 && towerHeight > 0 && slopeToAnchor < 90 && slopeMidSpan < 90 && percentDeflectionYarderSide > 0
     }
     var isDataValidAnchor: Bool {
         // Check if required fields are filled (example with `spanGround` and `towerHeight`)
-        return logLengthAnchor > 0 && percentDeflectionAnchor > 0 && slopeToTower > 0 && slopeToMid > 0 && slopeToMid < 90 && slopeToTower < 90
+        return spanLengthAnchor > 0 && percentDeflectionAnchor > 0 && slopeToTower > 0 && slopeToMidSpanAnchor > 0 && slopeToMidSpanAnchor < 90 && slopeToTower < 90
     }
 }
 

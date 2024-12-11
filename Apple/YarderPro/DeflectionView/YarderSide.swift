@@ -46,11 +46,11 @@ struct YarderSide: View{
                     
                     // Use a temporary String to hold the input
                     
-                    TextField("Ground", value: ($deflectionLog.spanGround), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingGround = isEditing})
+                    TextField("Ground", value: ($deflectionLog.slopeToAnchor), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingGround = isEditing})
                         .font(.custom("Helvetica Neue", size: 19))
                         .keyboardType(.decimalPad)
                         .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingGround))
-                        .onChange(of: deflectionLog.spanGround) {
+                        .onChange(of: deflectionLog.slopeToAnchor) {
                             deflectionLog.calculatePercentDeflection(context: viewContext)
                         }
                         .overlay(
@@ -70,11 +70,11 @@ struct YarderSide: View{
                     
                     Spacer()
                     
-                    TextField("Mid Span", value: ($deflectionLog.spanMidSpan), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingMidSpan = isEditing})
+                    TextField("Mid Span", value: ($deflectionLog.slopeMidSpan), formatter: decimalFormatter, onEditingChanged: { isEditing in isEditingMidSpan = isEditing})
                         .font(.custom("Helvetica Neue", size: 19))
                         .keyboardType(.decimalPad)
                         .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingMidSpan))
-                        .onChange(of: deflectionLog.spanMidSpan) {
+                        .onChange(of: deflectionLog.slopeMidSpan) {
                             deflectionLog.calculatePercentDeflection(context: viewContext)
                         }
                         .overlay(
@@ -129,13 +129,13 @@ struct YarderSide: View{
                     
                     Spacer()
                     
-                    TextField("Length", value: $deflectionLog.logLength, formatter: decimalFormatter, onEditingChanged: { editing in
+                    TextField("Length", value: $deflectionLog.spanLength, formatter: decimalFormatter, onEditingChanged: { editing in
                         isEditingLength = editing
                     })
                     .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingLength))
                     .keyboardType(.decimalPad)
                     .font(.custom("Helvetica Neue", size: 19))
-                    .onChange(of: deflectionLog.logLength) {
+                    .onChange(of: deflectionLog.spanLength) {
                         deflectionLog.calculatePercentDeflection(context: viewContext)
                     }
                     // Meter v Yard toggle
@@ -166,17 +166,17 @@ struct YarderSide: View{
                     Spacer()
                     if deflectionLog.isDataValidYarder {
                         // Display `percentDeflection` directly if it's a non-optional Double
-                        Text("\(deflectionLog.percentDeflection)")
+                        Text("\(deflectionLog.percentDeflectionYarderSide)")
                             .font(.custom("Helvetica Neue", size: 19))
-                    }else if(deflectionLog.logLength == 0){
+                    }else if(deflectionLog.spanLength == 0){
                         Text("Log Length Must not be 0")
                             .foregroundColor(.red)
                             .font(.custom("Helvetica Neue", size: 19))
-                    }else if(deflectionLog.spanMidSpan >= 90){
+                    }else if(deflectionLog.slopeMidSpan >= 90){
                         Text("MidSpan Slope must be less than 90")
                             .foregroundColor(.red)
                             .font(.custom("Helvetica Neue", size: 19))
-                    }else if(deflectionLog.spanGround >= 90){
+                    }else if(deflectionLog.slopeToAnchor >= 90){
                         Text("Ground Slope must be less than 90")
                             .foregroundColor(.red)
                             .font(.custom("Helvetica Neue", size: 19))
