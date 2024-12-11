@@ -51,7 +51,7 @@ struct YarderSide: View{
                         .keyboardType(.decimalPad)
                         .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingGround))
                         .onChange(of: deflectionLog.slopeToAnchor) {
-                            deflectionLog.calculatePercentDeflection(context: viewContext)
+                            deflectionLog.calculateYarderDeflection(context: viewContext)
                         }
                         .overlay(
                             Text("%")
@@ -75,7 +75,7 @@ struct YarderSide: View{
                         .keyboardType(.decimalPad)
                         .textFieldStyle(CustomBorderedTextFieldStyle(isEditing: isEditingMidSpan))
                         .onChange(of: deflectionLog.slopeMidSpan) {
-                            deflectionLog.calculatePercentDeflection(context: viewContext)
+                            deflectionLog.calculateYarderDeflection(context: viewContext)
                         }
                         .overlay(
                             Text("%")
@@ -100,7 +100,7 @@ struct YarderSide: View{
                     .keyboardType(.decimalPad)
                     .font(.custom("Helvetica Neue", size: 19))
                     .onChange(of: deflectionLog.towerHeight) {
-                        deflectionLog.calculatePercentDeflection(context: viewContext)
+                        deflectionLog.calculateYarderDeflection(context: viewContext)
                     }
                     
                     // Meter v Yard toggle
@@ -136,7 +136,7 @@ struct YarderSide: View{
                     .keyboardType(.decimalPad)
                     .font(.custom("Helvetica Neue", size: 19))
                     .onChange(of: deflectionLog.spanLength) {
-                        deflectionLog.calculatePercentDeflection(context: viewContext)
+                        deflectionLog.calculateYarderDeflection(context: viewContext)
                     }
                     // Meter v Yard toggle
 //                    Toggle(isOn: $buttonLength, label: {

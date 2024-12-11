@@ -76,7 +76,7 @@ extension DeflectionLogEntity {
     
     
     // Used to calculate percent deflection on the yarder Side, uses equation % Deflection = (Sground– Smidspan) / 2.2 + (TowerH / Length) / 2.2 x 100%
-    public func calculatePercentDeflection(context: NSManagedObjectContext) {
+    public func calculateYarderDeflection(context: NSManagedObjectContext) {
         guard spanLength != 0 else {
             print("Log length is zero, cannot calculate percent deflection.")
             return
