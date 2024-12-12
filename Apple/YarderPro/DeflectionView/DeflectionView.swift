@@ -25,7 +25,9 @@ struct DeflectionView: View {
                 get: { deflectionLog.yarderOrAnchorEnum },
                 set: { newValue in
                     deflectionLog.yarderOrAnchorEnum = newValue
-                    saveContext()
+                    if viewContext.hasChanges {
+                        try? viewContext.save()
+                    }
                 }
             )) {
                 Text("Yarder").tag(YarderOrAnchor.yarder)
@@ -35,12 +37,6 @@ struct DeflectionView: View {
 
             // Slider for different views based on selected tab
             slider(selectedTab: deflectionLog.yarderOrAnchorEnum, deflectionLog: deflectionLog)
-        }
-    }
-
-    private func saveContext() {
-        if viewContext.hasChanges {
-            try? viewContext.save()
         }
     }
 }
